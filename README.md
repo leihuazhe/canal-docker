@@ -23,7 +23,50 @@ WORKDIR /canal-server
 CMD ["sh",  "-c", "/canal-server/bin/startup.sh && tail -F /canal-server/bin/startup.sh"]
 ```
 ## 实例配置(instance)
+> 这是一个配置的简单例子，注意对数据库的白名单和黑名单的配置。没有使用mysql GTID 模式
 ```properties
+#################################################
+## mysql serverId , v1.0.26+ will autoGen 
+# canal.instance.mysql.slaveId=0
 
+# enable gtid use true/false
+canal.instance.gtidon=false
+
+# position info
+canal.instance.master.address=db-master:3306
+canal.instance.master.journal.name=
+canal.instance.master.position=
+canal.instance.master.timestamp=
+canal.instance.master.gtid=
+
+# rds oss binlog
+canal.instance.rds.accesskey=
+canal.instance.rds.secretkey=
+canal.instance.rds.instanceId=
+
+# table meta tsdb info
+canal.instance.tsdb.enable=true
+#canal.instance.tsdb.url=jdbc:mysql://127.0.0.1:3306/canal_tsdb
+#canal.instance.tsdb.dbUsername=canal
+#canal.instance.tsdb.dbPassword=canal
+
+#canal.instance.standby.address =
+#canal.instance.standby.journal.name =
+#canal.instance.standby.position = 
+#canal.instance.standby.timestamp =
+#canal.instance.standby.gtid=
+
+# username/password
+canal.instance.dbUsername=root
+canal.instance.dbPassword=123456
+canal.instance.connectionCharset=UTF-8
+
+# table regex
+canal.instance.filter.regex=.*\\..*
+
+# 黑名单
+canal.instance.filter.black.regex=order_db\\..*,.*\\.dp_common_event
+
+#################################################
 
 ```
